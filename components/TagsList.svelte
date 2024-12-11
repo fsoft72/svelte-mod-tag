@@ -14,9 +14,10 @@
 
     interface TagAdminListProps {
         modules?: string[];
+        isAdmin?: boolean;
     }
 
-    let { modules }: TagAdminListProps = $props();
+    let { modules, isAdmin = false }: TagAdminListProps = $props();
 
     let isReady:boolean = $state(false);
     let tags: Tag[] = $state([]);
@@ -75,7 +76,7 @@
         if (storeTag.initiated) {
             tags = storeTag.list();
         } else {
-            tags = await storeTag.loadAll() || [];
+            tags = isAdmin ? await storeTag.loadAll() || [] : await storeTag.load() || [];
         }
         isReady = true;
     });
