@@ -7,7 +7,7 @@
 
 /*=== f2c_end __file ===*/
 
-import { get, patch, post, delete_ } from '$liwe3/utils/fetcher';
+import { get, patch, post, delete_, type LiWEFetcherOptions } from '$liwe3/utils/fetcher';
 
 /**
  * The call creates or updates a tag in the system
@@ -20,8 +20,8 @@ import { get, patch, post, delete_ } from '$liwe3/utils/fetcher';
  * @return tag: Tag
  *
  */
-export const tag_admin_add = async ( name: string, visible: boolean = true ) => {
-	const res = await post( `/api/tag/admin/add`, { name, visible }, true );
+export const tag_admin_add = async ( name: string, visible: boolean = true, _options?: LiWEFetcherOptions ) => {
+	const res = await post( `/api/tag/admin/add`, { name, visible }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -40,8 +40,8 @@ export const tag_admin_add = async ( name: string, visible: boolean = true ) => 
  * @return tags: Tag
  *
  */
-export const tag_admin_list = async (  ) => {
-	const res = await post( `/api/tag/admin/list`, {}, true );
+export const tag_admin_list = async ( _options?: any ) => {
+	const res = await post( `/api/tag/admin/list`, {}, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -64,8 +64,8 @@ export const tag_admin_list = async (  ) => {
  * @return tag: Tag
  *
  */
-export const tag_admin_update = async ( id: string, name?: string, visible?: boolean ) => {
-	const res = await patch( `/api/tag/admin/update`, { id, name, visible }, true );
+export const tag_admin_update = async ( id: string, name?: string, visible?: boolean, _options?: LiWEFetcherOptions ) => {
+	const res = await patch( `/api/tag/admin/update`, { id, name, visible }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -86,8 +86,8 @@ export const tag_admin_update = async ( id: string, name?: string, visible?: boo
  * @return tag: Tag
  *
  */
-export const tag_admin_fields = async ( id: string, data: any ) => {
-	const res = await patch( `/api/tag/admin/fields`, { id, data }, true );
+export const tag_admin_fields = async ( id: string, data: any, _options?: LiWEFetcherOptions ) => {
+	const res = await patch( `/api/tag/admin/fields`, { id, data }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -107,8 +107,8 @@ export const tag_admin_fields = async ( id: string, data: any ) => {
  * @return tag: Tag
  *
  */
-export const tag_admin_module_add = async ( id: string, module: string ) => {
-	const res = await post( `/api/tag/admin/module/add`, { id, module }, true );
+export const tag_admin_module_add = async ( id: string, module: string, _options?: LiWEFetcherOptions ) => {
+	const res = await post( `/api/tag/admin/module/add`, { id, module }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -128,8 +128,8 @@ export const tag_admin_module_add = async ( id: string, module: string ) => {
  * @return tag: Tag
  *
  */
-export const tag_admin_module_del = async ( id: string, module: string ) => {
-	const res = await delete_( `/api/tag/admin/module/del`, { id, module }, true );
+export const tag_admin_module_del = async ( id: string, module: string, _options?: LiWEFetcherOptions ) => {
+	const res = await delete_( `/api/tag/admin/module/del`, { id, module }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -150,8 +150,8 @@ export const tag_admin_module_del = async ( id: string, module: string ) => {
  * @return tags: Tag
  *
  */
-export const tag_list = async ( module?: string ) => {
-	const res = await get( `/api/tag/list`, { module }, false );
+export const tag_list = async ( module?: string, _options?: LiWEFetcherOptions ) => {
+	const res = await get( `/api/tag/list`, { module }, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
@@ -160,4 +160,23 @@ export const tag_list = async ( module?: string ) => {
 	/*=== f2c_end tag_list ===*/
 
 	return res.tags;
+};
+
+/**
+ * @param tags - List of tags to search [req]
+ * @param module - Optional module [opt]
+ *
+ * @return objs: TagSearchResult
+ *
+ */
+export const tag_search = async ( tags: string[], module?: string, _options?: LiWEFetcherOptions ) => {
+	const res = await get( `/api/tag/search`, { tags, module }, _options?.skipError ? _options.skipError : false );
+
+	if (res.error) return res;
+
+	/*=== f2c_start tag_search ===*/
+
+	/*=== f2c_end tag_search ===*/
+
+	return res.objs;
 };

@@ -23,3 +23,27 @@ export interface Tag {
 	modules?: string[];
 }
 
+/** TagBind */
+export interface TagBind {
+	/** Record id */
+	id: string;
+	/** Domain */
+	domain: string;
+	/**  */
+	id_tag?: string;
+	/**  */
+	id_obj?: string;
+	/**  */
+	module?: string;
+}
+
+/** TagSearchResult */
+export interface TagSearchResult {
+	/** The tag name */
+	tag: string[];
+	/** The id_obj */
+	id_obj: string;
+	/** The module */
+	module: string;
+}
+
