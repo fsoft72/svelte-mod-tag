@@ -41,7 +41,7 @@ export const tag_admin_add = async ( name: string, visible: boolean = true, _opt
  *
  */
 export const tag_admin_list = async ( _options?: any ) => {
-	const res = await post( `/api/tag/admin/list`, {}, _options?.skipError ? _options.skipError : false );
+	const res = await get( `/api/tag/admin/list`, {}, _options?.skipError ? _options.skipError : false );
 
 	if (res.error) return res;
 
