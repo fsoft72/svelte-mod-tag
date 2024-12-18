@@ -14,6 +14,7 @@ type TagFields = Partial<Tag>;
 
 interface TagStore {
 	tags: { [ key: string ]: Tag; };
+	tagsList: string[];
 	initiated: boolean;
 
 	add: ( data: Tag ) => Promise<Tag | undefined>;
@@ -24,6 +25,8 @@ interface TagStore {
 	get: ( id: string ) => Tag | undefined;
 	loadAll: () => Promise<Tag[] | undefined>;
 	load: () => Promise<Tag[] | undefined>;
+	filterModule: ( module?: string ) => string[];
+	listNames: ( module?: string ) => string[];
 	list: () => Tag[];
 }
 
@@ -51,6 +54,7 @@ const manageModules = async ( res: Tag, data: Tag ) => {
 
 export const storeTag: TagStore = $state( {
 	tags: {},
+	tagsList: [],
 	initiated: false,
 	add: async ( data: Tag ) => {
 		if ( !data.name ) {
@@ -102,6 +106,7 @@ export const storeTag: TagStore = $state( {
 	},
 	loadAll: async () => {
 		const res = await tag_admin_list();
+		console.log( 'store.loadAll', res );
 		if ( res.error ) return;
 		res.forEach( ( tag: Tag ) => {
 			storeTag.tags[ tag.id ] = tag;
@@ -117,6 +122,20 @@ export const storeTag: TagStore = $state( {
 		} );
 		storeTag.initiated = true;
 		return Object.values( storeTag.tags );
+	},
+	filterModule: ( module?: string ) => {
+		let available: Tag[] = Object.values( storeTag.tags );
+		if ( module ) {
+			available = Object.values( storeTag.tags ).filter( ( tag ) => tag.modules ? tag.modules.includes( module ) || tag.modules.includes( 'system' ) : false );
+		}
+		storeTag.tagsList = available.map( tag => tag.name );
+		return storeTag.tagsList;
+	},
+	listNames: ( module?: string ) => {
+		if ( storeTag.tagsList.length === 0 ) {
+			storeTag.filterModule( module );
+		}
+		return storeTag.tagsList;
 	},
 	list: () => {
 		return Object.values( storeTag.tags );

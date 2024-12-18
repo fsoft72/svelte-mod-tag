@@ -19,10 +19,10 @@
 
     let { modules, isAdmin = false }: TagAdminListProps = $props();
 
-    let isReady:boolean = $state(false);
+    let isReady: boolean = $state(false);
     let tags: Tag[] = $state([]);
-    let showModal:boolean = $state(false);
-    let values:Partial<Tag> = $state({});
+    let showModal: boolean = $state(false);
+    let values: Partial<Tag> = $state({});
 
     const dataFields: DataGridField[] = [
         { name: 'name', label: 'Tag', type: 'text', filterable: true },
