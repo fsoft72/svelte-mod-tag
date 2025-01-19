@@ -78,7 +78,7 @@ export const storeTag: TagStore = $state( {
 		if ( res.error ) return;
 
 		res = await manageModules( res, data );
-		console.log( 'store.update', res );
+		//console.log( 'store.update', res );
 
 		storeTag.tags[ res.id ] = res;
 		return res;
