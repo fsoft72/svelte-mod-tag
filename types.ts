@@ -47,3 +47,9 @@ export interface TagSearchResult {
 	module: string;
 }
 
+/** TagBase */
+export interface TagBase {
+	/** The tag name */
+	name?: string;
+}
+

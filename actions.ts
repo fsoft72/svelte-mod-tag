@@ -147,7 +147,7 @@ export const tag_admin_module_del = async ( id: string, module: string, _options
  *
  * @param module - The name of the module to filter for [opt]
  *
- * @return tags: Tag
+ * @return tags: TagBase
  *
  */
 export const tag_list = async ( module?: string, _options?: LiWEFetcherOptions ) => {
