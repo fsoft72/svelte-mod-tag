@@ -106,7 +106,7 @@ export const storeTag: TagStore = $state( {
 	},
 	loadAll: async () => {
 		const res = await tag_admin_list();
-		console.log( 'store.loadAll', res );
+		//console.log( 'store.loadAll', res );
 		if ( res.error ) return;
 		res.forEach( ( tag: Tag ) => {
 			storeTag.tags[ tag.id ] = tag;
