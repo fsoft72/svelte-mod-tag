@@ -25,6 +25,7 @@
     let values: Partial<Tag> = $state({});
 
     const dataFields: DataGridField[] = [
+        { name: 'id', label: 'ID', type: 'text', hidden: true, editable: false },
         { name: 'name', label: 'Tag', type: 'text', filterable: true, editable: true },
         { name: 'module', label: 'Modules', type: 'text',  render: (name, row) => row.modules.join(', '), filterable: true },
         { name: 'visibile', label: 'Visible', type: 'checkbox', filterable: true },

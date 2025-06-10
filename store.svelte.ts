@@ -52,6 +52,10 @@ const manageModules = async ( res: Tag, data: Tag ) => {
 	return res;
 };
 
+const _createNamesList = () => {
+	storeTag.tagsList = Object.values( storeTag.tags ).map( ( tag ) => tag.name );
+};
+
 export const storeTag: TagStore = $state( {
 	tags: {},
 	tagsList: [],
@@ -67,6 +71,7 @@ export const storeTag: TagStore = $state( {
 		res = await manageModules( res, data );
 
 		storeTag.tags[ res.id ] = res;
+		_createNamesList();
 		return res;
 	},
 	update: async ( data: Tag ) => {
@@ -81,24 +86,28 @@ export const storeTag: TagStore = $state( {
 		//console.log( 'store.update', res );
 
 		storeTag.tags[ res.id ] = res;
+		_createNamesList();
 		return res;
 	},
 	fields: async ( id: string, data: TagFields ) => {
 		const res = await tag_admin_fields( id, data );
 		if ( res.error ) return;
 		storeTag.tags[ res.id ] = res;
+		_createNamesList();
 		return res;
 	},
 	moduleAdd: async ( id: string, module: string ) => {
 		const res = await tag_admin_module_add( id, module );
 		if ( res.error ) return;
 		storeTag.tags[ res.id ] = res;
+		_createNamesList();
 		return res;
 	},
 	moduleDel: async ( id: string, module: string ) => {
 		const res = await tag_admin_module_del( id, module );
 		if ( res.error ) return;
 		storeTag.tags[ res.id ] = res;
+		_createNamesList();
 		return res;
 	},
 	get: ( id: string ) => {
@@ -111,15 +120,19 @@ export const storeTag: TagStore = $state( {
 		res.forEach( ( tag: Tag ) => {
 			storeTag.tags[ tag.id ] = tag;
 		} );
+		_createNamesList();
 		storeTag.initiated = true;
 		return Object.values( storeTag.tags );
 	},
 	load: async () => {
 		const res = await tag_list();
 		if ( res.error ) return;
+		storeTag.tags = {};
+		storeTag.tagsList = [];
 		res.forEach( ( tag: Tag ) => {
 			storeTag.tags[ tag.id ] = tag;
 		} );
+		_createNamesList();
 		storeTag.initiated = true;
 		return Object.values( storeTag.tags );
 	},
@@ -134,6 +147,8 @@ export const storeTag: TagStore = $state( {
 	listNames: ( module?: string ) => {
 		if ( storeTag.tagsList.length === 0 ) {
 			storeTag.filterModule( module );
+		} else {
+			_createNamesList();
 		}
 		return storeTag.tagsList;
 	},

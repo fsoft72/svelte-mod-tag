@@ -49,7 +49,11 @@ export interface TagSearchResult {
 
 /** TagBase */
 export interface TagBase {
+	/** The main identifier */
+	id: string;
 	/** The tag name */
 	name?: string;
+	/** The tag module */
+	module?: string;
 }
 
