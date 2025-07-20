@@ -29,7 +29,7 @@ export const tag_admin_add = async ( name: string, visible: boolean = true, _opt
 
 	/*=== f2c_end tag_admin_add ===*/
 
-	return res.tag;
+	return res.data;
 };
 
 /**
@@ -49,7 +49,7 @@ export const tag_admin_list = async ( _options?: any ) => {
 
 	/*=== f2c_end tag_admin_list ===*/
 
-	return res.tags;
+	return res.data;
 };
 
 /**
@@ -73,7 +73,7 @@ export const tag_admin_update = async ( id: string, name?: string, visible?: boo
 
 	/*=== f2c_end tag_admin_update ===*/
 
-	return res.tag;
+	return res.data;
 };
 
 /**
@@ -95,7 +95,7 @@ export const tag_admin_fields = async ( id: string, data: any, _options?: LiWEFe
 
 	/*=== f2c_end tag_admin_fields ===*/
 
-	return res.tag;
+	return res.data;
 };
 
 /**
@@ -116,7 +116,7 @@ export const tag_admin_module_add = async ( id: string, module: string, _options
 
 	/*=== f2c_end tag_admin_module_add ===*/
 
-	return res.tag;
+	return res.data;
 };
 
 /**
@@ -137,7 +137,7 @@ export const tag_admin_module_del = async ( id: string, module: string, _options
 
 	/*=== f2c_end tag_admin_module_del ===*/
 
-	return res.tag;
+	return res.data;
 };
 
 /**
@@ -159,7 +159,7 @@ export const tag_list = async ( module?: string, _options?: LiWEFetcherOptions )
 
 	/*=== f2c_end tag_list ===*/
 
-	return res.tags;
+	return res.data;
 };
 
 /**
@@ -178,5 +178,5 @@ export const tag_search = async ( tags: string[], module?: string, _options?: Li
 
 	/*=== f2c_end tag_search ===*/
 
-	return res.objs;
+	return res.data;
 };
